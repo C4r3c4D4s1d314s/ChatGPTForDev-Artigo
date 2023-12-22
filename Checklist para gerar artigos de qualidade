@@ -1,0 +1,112 @@
+Resultado do projeto
+https://dio.me/articles/metodologia-de-graus-de-relacionamento-para-modelagem-eficiente-de-bancos-de-dados-relacionais
+
+- []Definir o assunto
+- []Título chamativo: headline
+- []Imagem de capa chamativa
+- []Blocos do artigo
+- []Postar o artigo com um call to action
+
+## Assunto:
+    Modelagem SQL - Abordagem 
+    
+## Título
+    Prompt chatgpt: atue como um geek, gere um titulo para um artigo sobre modelagem de entidades sql com foco na hierarquia das relações entre as entidade
+
+    prompt:
+    reescreva o titulo sugerido com no máximo 5 palavras
+    
+    resposta: "SQL: Hierarquia Eficiente de Entidades"
+
+## Capa
+
+## Blocos
+Comporte-se como coder, reescreva o {Texto} utilizando linguagem direta, objetiva, fácil entendimento para um coder senior
+
+{Regras}
+->Utilize no máximo 3 palavras para substituir cada tópico/bloco
+->Explique cada tópico com no máximo 5 linhas por parágrafo, e no máximo 2 parágrafos por bloco de explicação, além dos parágrafos bullet points
+->Os blocos que serão criados estão abaixo:
+>Explique qual o papel da modelagem de entidades de relacionamentos na elaboração de um banco de dados relacional SQL
+>Explique O que são Entidades SQL
+>Liste em bullets points, 3 exemplos de entidades
+>Explique O que significa relacionamento das entidades
+>-Liste em bullets points, 3 exemplos de  relacionamentos
+>Explique o que significa relacionamento de interesse
+>Liste em bullet point, 3 exemplos de relacionamentos de interesse
+>Explique a complexidade de banco de dados relacionais com grande número de entidades
+>Liste em bullets points, 3 exemplos de banco de dados com grande número de entidades
+>Explique o impacto que é a organização das entidades num modelo espacial causa no andamento da implementação do projeto de uma aplicação
+>conclua descrevendo a importância da organização e níveis de relacionamento
+
+{texto}
+
+Técnica de modelagem de entidades de relacionamento em sistema de gestão de banco de dados relacional
+No processo de modelar um banco de dados, é necessário identificar as entidades e seus relacionamentos
+
+Como exemplo de fácil entendimento, num ambiente de uma oficina de automóveis, temos:
+
+Entidades: veículos automotores, seus responsáveis (propritetários, motoristas etc), técnicos em mecânica, atendentes, caixa
+
+Interessea:
+Proprietários querem que os mecânicos reparem os automóveis utilizando peças, materiais e serviços
+Proprietário da oficina querem receber pagamento pelas peças, materiais e serviços envolvidos nos reparos dos veículos
+Funcionários da oficina querem prestar serviços e receberem pagamentos por eles
+
+Num banco de dados com grande quantidade de entidades, o número de relacionamentos é muito mais complexo, exigindo organização para facilitar o entendimento
+
+Análisando o mini mundo que o sistema irá abordar, temos que identificar os objetos ou conceitos, onde o relacionamento é foco do interesse da maioria das entidades.
+
+Relação de interesse geral e níveis de relacionamento:
+No exemplo da oficina mecânica, os interesses convergem para a ação de reparo do automóvel. Sem o reparo, ninguém terá sua expectativa satisfeita. A relação veículo/reparo é relação de interesse geral da qual derivam todas as relações entre entidades
+
+O objeto veículo tem inúmeras características das quais podem citar algumas de relevância tais como: identificação (placa), Fabricante, Marca, Modelo, Ano de Fabricação
+
+O reaparo do automóvel não existe em si, mas ser representado no documento ordem de serviço. Na ordem de serviço podemos identificar algumas características como: lista de materiais, serviços
+
+Essa relação veículo/ordem de serviço é de primeiro grau de interesse do sistema. Se existe o veículo mas não existe a ordem, não há exercício do trabalho nem oportunidade de ganhos. A existencia de uma ordem de serviço já pressupôe a existencia de um veículo a espera de reparo, de uma equipe técnica e materiais disponíveis etc. Ela deve ser a primeira relação a ser modelada no banco de dados.
+
+Demais relações são derivadas da relação de primeiro grau e estão ligadas a ela direta ou indiretamente.
+Elaborar uma lista de mecânicos que trabalharam num veículo interessa para os trabalhadores e para o proprietário da oficina, onde os trabalhadores esperam ser pagos pelo serviço e o proprietário espera receber o lucro obtido com a execução do reparo.
+
+Noutro exemplo, num e-comerce, a existencia de um cliente não gera evento lucrativo para o site, mas quando o cliente demonstra interesse em adiquirir produtos acontece a relação de primeiro grau, e isso acontece quando um carrinho se torna um pedido de compras. A relação cliente/carrinho/pedido é a de primeiro grau de interesse. Como se dará a entrega, disponibilidade de estoque, forma de pagamento, prazo de entrega etc, são questões que só podem ser respondidas a partir desse evento, desse relacionamento de primeiro grau de interesse.
+
+Mais um exemplo, numa clínica médica, a existencia de um paciente não gera pagamento, mas quando ele passa pela consulta médica, elabora-se o prontuário, receita, cobrança. A relação paciente/consulta é de primeiro grau de interesse.
+
+Modelando os relacionamentos
+
+a partir da identificação do relacionamento foco do interesse, criamos as entidades que os representarão com os detalhes exatos, nem mais nem menos, do que o necessário para atender a todas as relações de graus posteriores.
+
+Então podemos identificar os graus de relacionamentos das entidades da seguinte forma:
+Relação veículo/ordem de serviço é de primeiro grau
+Do lado do veículo temos que a relação proprietário/veículo é de segundo grau, o telefone do proprietário é de terceiro grau e assim segue.
+Do lado da ordem de serviço temos que a relação ordem de serviço/lista de materiais é de segundo grau, a relação entre lista de materiais/fabricante é de terceiro grau e assim por diante
+
+Supondo a necessidade de desenvolvimento de uma aplicação, a partir da aprovação parcial pelos stakehokders da modelagem das entidades de relacionamento de primeiro grau, os desenvolvedores da aplicação já poderiam se debruçar no código.
+
+Num projeto de grande número de entidades e graus de relacionamento, os trabalhos da equipe de banco de dados com a equipe de aplicação seria praticamente ao mesmo tempo, agilizando o processo de desenvolvimento
+
+Um modelo gráfico das entidades de relacionamento deve ser criado para início das atividades do projeto. Numa organização espacial dessas relações, a relação de primeiro grau deve estar na parte superior, as de segundo grau devem estar logo abaixo, as de terceiro grau abaixo da anterior e assim sucessivamente.
+
+No nosso exemplo de sistema para oficina mecânica, temos a relação veículo/ordem de serviço como de primeiro grau. Observe que existem relações de segundo grau a partir das duas entidades (veículo e ordem de serviço). Considerando que se escolha dispor graficamente a entidade veículo à esquerda e ordem de serviço à direita, as entidades ligadas ao veículo serão disposta abaixo da relação principal e se manterão à esquerda. Já as entidades serviços e materiais serão dispostas à abaixo e à direita. As relações de graus diversos tanto as ligadas ao veículo quanto à ordem de serviço podem ficar, lado a lado.
+Pode ocorrer ainda de uma entidade de relacionamento de nível posterior ligada ao veículo se relacionar também com outra do lado da ordem de serviço, de qualquer nível, como exemplo cito a relação entre as entidades cartão e pagamento.
+
+
+## Fontes de produção
+Técnica desenvolvida pelo autor
+Conteúdo gerado com auxilio da I.A. CHatGPT, revisado pelo autor.
+Ilustrações geradas a partir de imagens obtidas do site lexica.art
+
+
+
+
+
+
+
+
+
+utilizar o Lexica.art para obter uma imgaem.
+Buscar "Angular framework"
+inserir a imagem no powerpoint
+tamanho da imagem personalizado. retrato,
+tamanho do slide, largura 1280px, altura 320px
